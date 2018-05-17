@@ -18,7 +18,7 @@ class RegRun:
         #Menu to choose which Reg Key to write to
         print "Please choose the Registry key to use for PerCyst:"
         print "  1. HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
-        print "  2. HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
+        print "  2. HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
         print "  Q. Quit"
         choice = raw_input(">> ")
 
@@ -43,7 +43,42 @@ class RegRun:
 
 
     def cleanup(self):
-        print('cleanup here')
+        #Menu to choose which Reg Key to write to
+        print "Please choose the Registry key to Review for PerCyst Cleanup:"
+        print "  1. HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+        print "  2. HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
+        print "  Q. Quit"
+        choice = raw_input(">> ")
+
+        #Setting the value for choice, or exiting if Quit was chosen
+        if choice == str(1):
+            choice = "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+            cmd = 'reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /s'
+            regList = self.runCmd(cmd)
+
+            print "Please type in the Registry value name to delete for PerCyst Cleanup:"
+            choice = raw_input(">> ")
+
+            cmd = 'reg delete HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run /v ' + str(choice) + ' /f'
+            self.runCmd(cmd)
+
+        elif choice == str(2):
+            choice = "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
+            cmd = 'reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce /s'
+            regList = self.runCmd(cmd)
+
+            print "Please type in the Registry value name to delete for PerCyst Cleanup:"
+            choice = raw_input(">> ")
+
+            cmd = 'reg delete HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce /v ' + str(choice) + ' /f'
+            self.runCmd(cmd)
+
+        elif choice.lower() == 'q':
+            print('\n[-] Thanks for using PerCyst\n')
+            sys.exit()
+        else:
+            print('Invalid Choice')
+            sys.exit()
 
 
     def runCmd(self, cmd):

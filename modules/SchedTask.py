@@ -69,7 +69,7 @@ class SchedTask:
         taskName = tasks[choice]
         #schtasks /delete /tn {TaskName}
         # deletion is failing? not sure why yet
-        cmd = "schtasks /delete /tn " + taskName
+        cmd = "schtasks /delete /tn " + taskName + " /f"
         self.runCmd(cmd)
         print("[+] Cleanup Complete")
 
