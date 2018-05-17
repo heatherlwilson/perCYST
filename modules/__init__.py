@@ -1,1 +1,1 @@
-__all__ = ['SchedTask', 'RegRun']
+__all__ = ['SchedTask', 'RegRun', 'AccessibilityFeat']
